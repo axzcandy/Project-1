@@ -73,20 +73,20 @@
 			// Check if $uploadOk is set to 0 by an error
 			if ($uploadOk == 0) {
 				//echo "Sorry, your file was not uploaded.";
-				$picturename = '\projectv2\employee\php\pictures\nopicture.jpg';
+				$picturename = 'pictures\nopicture.jpg';
 			// if everything is ok, try to upload file
 			} else {
 				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file1)) {
 					//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-					$picturename = '\projectv2\employee\php\pictures\\'.$picturnname;
+					$picturename = 'pictures\\'.$picturnname;
 					//$statue1 = "show";
 				}else{
 					//echo "(move_uploaded_file($_FILES[fileToUpload][tmp_name], $target_file1)) failed ";
-					$picturename = '\projectv2\employee\php\pictures\nopicture.jpg';
+					$picturename = 'pictures\nopicture.jpg';
 				}
 			}
 		}else{
-			$picturename = '\projectv2\employee\php\pictures\nopicture.jpg';
+			$picturename = 'pictures\nopicture.jpg';
 		}//1st loop end here
 		
 				//insert sql
