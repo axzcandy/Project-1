@@ -109,7 +109,7 @@ function checkCustomerLoginValid(){
 	}
 }
 
-function checkPermission(){
+function checkPermission($dp){
 	
 	if(checkUserLoginValid()==true）{
 		
@@ -121,10 +121,15 @@ function checkPermission(){
 		$results = mysqli_query($conn,$sql);
 		$rows = mysqli_fetch_array($results,MYSQLI_ASSOC);
 		$uslv= $rows['pw'];
-		$usdp= $rows['dept'];
+		//$usdp= $rows['dept'];
 		//echo "1".$uslv;
 		//echo "2".$usdp;
-		return $uslv."+".$usdp;
+		if((int)$uslv>=(int)$dp)
+			{return true;}
+		else
+			{return false;}
+	}else{
+		return false;
 	}
 }
 
