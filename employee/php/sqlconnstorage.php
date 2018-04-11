@@ -63,7 +63,7 @@
 		}
 	}
 	
-	function checkCustomerLoginValid(){
+function checkCustomerLoginValid(){
 	$conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 	
 	if((isset($_SESSION['cs'])) || (isset($_SESSION['tcode']))){
@@ -108,6 +108,27 @@
 		header("Refresh: 1;URL=/projectv2/customer/html/customerlogin.html");
 	}
 }
+
+function checkPermission(){
+	
+	if(checkUserLoginValid()==true）{
+		
+	
+		$conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+		$user_check=$_SESSION['us'];
+		
+		$sql="select UserLevel as pw,DeptID as dept from employee where EID = '$user_check'";
+		$results = mysqli_query($conn,$sql);
+		$rows = mysqli_fetch_array($results,MYSQLI_ASSOC);
+		$uslv= $rows['pw'];
+		$usdp= $rows['dept'];
+		//echo "1".$uslv;
+		//echo "2".$usdp;
+		return $uslv."+".$usdp;
+	}
+}
+
+
 	/*----------------------------------------------------------------------
 	input
 	27		$_SESSION['us'];
