@@ -34,6 +34,7 @@
 		//@$active = $row['active'];
 		$statue = $row['Statue'];
 		$cid = $row['CID'];
+		$email = $row['Email'];
 
 		$count = mysqli_num_rows($result);
 		if($count == 1) 
@@ -41,9 +42,18 @@
 			if($statue!="logoff"){
 				if($statue=="new"){
 					//**go to verify account
-					$_SESSION['cs'] = $cid;
-					//echo "new";
-					header("Refresh: 1;URL= /projectv2/customer/html/cverifyemail.html");
+					$tempcode=createRandomcode();
+					$currenttime=date("Y-m-d H:i:s");
+					$sqlsettime = "UPDATE storagev1.customeridpass 
+									SET     LastActiveTime = '$currenttime' , TempCode = '$tempcode'
+									WHERE  CUser = '$myusername' or Email = '$myusername'";
+					if ($conn->query($sqlsettime) == TRUE){
+						//echo "new";
+						$_SESSION['cs'] = $cid;
+						$_SESSION['email'] = $email;
+						$_SESSION['tcode'] = $tempcode;
+						header("Refresh: 1;URL= /projectv2/customer/html/cverifyemail.html");
+					}
 				}else if($statue=='locked'){
 					echo "Account Locked !! Contact Admin";
 					header("Refresh: 3;URL= /projectv2/customer/html/customerlogin.html");
