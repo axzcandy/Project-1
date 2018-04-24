@@ -17,9 +17,9 @@
 		// $deliveryaddress = 'test';
 		// $location = 'here';
 		
-		$paymentmethod = 'creditcard';  // 繳費方式
+		$paymentmethod = '';  // 繳費方式
 		$payok = 0;  // 訂單是否已經繳費
-		$oprocess = 'truck';  // 取貨方式
+		$oprocess = '';
 		
 		//echo $_REQUEST["itemcodearray"];
 		$itemcodearray = json_decode($_REQUEST["itemcodearray"],true);
