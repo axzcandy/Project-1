@@ -76,34 +76,29 @@
 		$result = mysqli_query($conn,$sql);
 		$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 		
-		if($row['Statue']!='new'){
-			$conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-			if(!isset($_SESSION['cs'])){
-				header("Refresh: 1;URL=/projectv2/customer/html/customerlogin.html");
-				return false;
-				//header("location:/project/login.html");
-			}else{
-				$user_check=$_SESSION['cs'];
-				//$lasteactive=$_SESSION['lastactive'];
-				$tpcode=$_SESSION['tcode'];
-				$sql = "select LastActiveTime from customeridpass where CID = '$user_check' and TempCode = '$tpcode' ";
-				$result2 = mysqli_query($conn,$sql);
-				$row = mysqli_fetch_array($result2,MYSQLI_ASSOC);
-				$count2 = mysqli_num_rows($result2);
+		$conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+		$user_check=$_SESSION['cs'];
+		//$lasteactive=$_SESSION['lastactive'];
+		$tpcode=$_SESSION['tcode'];
+		$sql = "select LastActiveTime from customeridpass where CID = '$user_check' and TempCode = '$tpcode' ";
+		$result2 = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+		$count2 = mysqli_num_rows($result2);
 				
-				if($count2==1)
-				{
-					// record code here;
-					return true;
-				}else{
-					return false;
-				}
-			}
+		if($count2==1)
+		{
+			// record code here;
+			return true;
 		}else{
-			//echo 'fail';
-			header("Refresh: 1;URL=/projectv2/customer/html/customerlogin.html");
+			unset($_SESSION['cs']);
+			unset($_SESSION['lastactive']);
+			unset($_SESSION['tcode']);
+			return false;
 		}
 	}else{
+		unset($_SESSION['cs']);
+		unset($_SESSION['lastactive']);
+		unset($_SESSION['tcode']);
 		echo "Please login!!";
 		header("Refresh: 1;URL=/projectv2/customer/html/customerlogin.html");
 	}
